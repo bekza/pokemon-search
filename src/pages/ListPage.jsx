@@ -1,7 +1,8 @@
 import React from 'react';
+import PokemonList from '../components/PokemonList';
 
 function ListPage() {
-  return <div>ListPage</div>;
+  return <PokemonList />;
 }
 
 export default ListPage;
