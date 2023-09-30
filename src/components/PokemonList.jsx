@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import PokemonCard from './PokemonCard';
 
 function PokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -31,7 +32,24 @@ function PokemonList() {
     fetchPokemonList(currentPage);
   }, [currentPage]);
 
-  return <div>PokemonList</div>;
+  return (
+    <div className='pa3'>
+      <div className='flex flex-wrap justify-center'>
+        {pokemonList.map((pokemon, index) => {
+          const pokemonId = index + 1;
+          const uniqueKey = pokemonId + index;
+          return (
+            <PokemonCard
+              key={uniqueKey}
+              name={pokemon.name}
+              image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonId}.png`}
+              pokemonId={pokemonId}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
 export default PokemonList;
