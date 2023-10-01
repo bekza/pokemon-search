@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PokemonCard from './PokemonCard';
+import Spinner from './Spinner';
 
 function PokemonList() {
   const [pokemonList, setPokemonList] = useState([]);
@@ -32,6 +33,12 @@ function PokemonList() {
     fetchPokemonList(currentPage);
   }, [currentPage]);
 
+  const handleShowMore = () => {
+    setCurrentPage((prev) => prev + 1);
+
+    fetchPokemonList(currentPage + 1);
+  };
+
   return (
     <div className='pa3'>
       <div className='flex flex-wrap justify-center'>
@@ -48,6 +55,17 @@ function PokemonList() {
           );
         })}
       </div>
+      {isLoading && <Spinner />}
+      {!isLoading && pokemonList.length !== maxCount && (
+        <div className='flex justify-center'>
+          <button
+            onClick={handleShowMore}
+            className='mt3 grow pa2 bg-light-green black br1 bn pointer'
+          >
+            Show More
+          </button>
+        </div>
+      )}
     </div>
   );
 }
