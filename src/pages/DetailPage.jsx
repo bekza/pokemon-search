@@ -1,7 +1,8 @@
 import React from 'react';
+import PokemonDetail from '../components/PokemonDetail';
 
 function DetailPage() {
-  return <div>DetailPage</div>;
+  return <PokemonDetail />;
 }
 
 export default DetailPage;

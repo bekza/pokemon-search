@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<ListPage />} />
-          <Route path='pokemon:id' element={<DetailPage />} />
+          <Route path='pokemon/:id' element={<DetailPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>
