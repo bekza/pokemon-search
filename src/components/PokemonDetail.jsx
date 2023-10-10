@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
+import Spinner from './Spinner';
+import NotFoundPage from '../pages/NotFoundPage';
 
 function PokemonDetail() {
   const { id } = useParams();
@@ -35,7 +37,43 @@ function PokemonDetail() {
     fetchData();
   }, [id]);
 
-  return <div>PokemonDetail here</div>;
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  if (!pokemon || !pokemonSpecies) {
+    return <NotFoundPage />;
+  }
+
+  const PrimaryBtn = ({ text }) => {
+    return (
+      <button className='bg-blue white hover-bg-dark-blue hover-white pointer bn pa2 br2'>
+        {text}
+      </button>
+    );
+  };
+
+  const PokemonImg = ({ id, name }) => {
+    return (
+      <div className='w-100 w-30-l tc mb3'>
+        <img
+          src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
+          alt={name}
+        />
+      </div>
+    );
+  };
+
+  return (
+    <div className='pa3'>
+      <Link to='/'>
+        <PrimaryBtn text='Go back' />
+      </Link>
+      <div className='flex flex-wrap justify-center'>
+        <PokemonImg id={id} name={pokemon.name} />
+      </div>
+    </div>
+  );
 }
 
 export default PokemonDetail;
