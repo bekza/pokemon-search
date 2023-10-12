@@ -64,6 +64,17 @@ function PokemonDetail() {
     );
   };
 
+  const NameAndFlavor = ({ name, flavor }) => {
+    return (
+      <>
+        <h2 className='ma0 b'>
+          {name.toUpperCase()} #{pokemon.id}
+        </h2>
+        <span className='dark-gray'>{flavor}</span>
+      </>
+    );
+  };
+
   return (
     <div className='pa3'>
       <Link to='/'>
@@ -71,6 +82,13 @@ function PokemonDetail() {
       </Link>
       <div className='flex flex-wrap justify-center'>
         <PokemonImg id={id} name={pokemon.name} />
+
+        <main>
+          <NameAndFlavor
+            name={pokemon.name}
+            flavor={pokemonSpecies.flavor_text_entries[0].flavor_text}
+          />
+        </main>
       </div>
     </div>
   );
