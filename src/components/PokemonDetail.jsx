@@ -75,6 +75,33 @@ function PokemonDetail() {
     );
   };
 
+  const Profile = ({ pokemon, pokemonSpecies }) => {
+    const ProfileItem = ({ label, value }) => {
+      return (
+        <p>
+          <span className='b'>{label}</span> {value}
+        </p>
+      );
+    };
+
+    const profileData = [
+      { label: 'Height', value: `${pokemon.height}ft` },
+      { label: 'Weight', value: `${pokemon.weight}lbs` },
+      { label: 'Color', value: pokemonSpecies.color.name },
+      { label: 'Habitat', value: pokemonSpecies?.habitat?.name || 'N/A' },
+      { label: 'Base Experience', value: pokemon?.base_experience || 'N/A' },
+      { label: 'Base Happines', value: pokemonSpecies?.base_happiness },
+    ];
+    return (
+      <div className='w-100 w-30-l pa0'>
+        <h4 className='b dark-blue'>PROFILE</h4>
+        {profileData.map(({ label, value }, index) => {
+          return <ProfileItem key={index} label={label} value={value} />;
+        })}
+      </div>
+    );
+  };
+
   return (
     <div className='pa3'>
       <Link to='/'>
@@ -88,6 +115,10 @@ function PokemonDetail() {
             name={pokemon.name}
             flavor={pokemonSpecies.flavor_text_entries[0].flavor_text}
           />
+
+          <div className='flex flex-wrap justify-center items-start w-70-l w-100'>
+            <Profile pokemon={pokemon} pokemonSpecies={pokemonSpecies} />
+          </div>
         </main>
       </div>
     </div>
