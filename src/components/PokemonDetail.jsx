@@ -102,6 +102,50 @@ function PokemonDetail() {
     );
   };
 
+  const Specs = ({ pokemon, pokemonSpecies }) => {
+    return (
+      <div className='w-100 w-70-l pa0'>
+        <h4 className='b dark-blue'>SPECS</h4>
+        <p>
+          <b>Egg Groups:</b>{' '}
+          {pokemonSpecies.egg_groups.map((item, index) => {
+            return (
+              <span key={item.name + index}>
+                <button className='mr1 bn pa1 bg-lightest-blue dark-gray br1'>
+                  {item.name}
+                </button>
+              </span>
+            );
+          })}
+        </p>
+        <p>
+          <b>Types:</b>{' '}
+          {pokemon.types.map((item, index) => {
+            return (
+              <span key={item.name + index}>
+                <button className='mr1 bn pa1 bg-washed-red black br1'>
+                  {item.type.name}
+                </button>
+              </span>
+            );
+          })}
+        </p>
+        <p>
+          <b>Abilities:</b>{' '}
+          {pokemon.abilities.map((item, index) => {
+            return (
+              <span key={item.name + index}>
+                <button className='mr1 bn pa1 bg-washed-green br1'>
+                  {item.ability.name}
+                </button>
+              </span>
+            );
+          })}
+        </p>
+      </div>
+    );
+  };
+
   return (
     <div className='pa3'>
       <Link to='/'>
@@ -118,6 +162,7 @@ function PokemonDetail() {
 
           <div className='flex flex-wrap justify-center items-start w-70-l w-100'>
             <Profile pokemon={pokemon} pokemonSpecies={pokemonSpecies} />
+            <Specs pokemon={pokemon} pokemonSpecies={pokemonSpecies} />
           </div>
         </main>
       </div>
