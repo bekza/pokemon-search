@@ -122,7 +122,7 @@ function PokemonDetail() {
           <b>Types:</b>{' '}
           {pokemon.types.map((item, index) => {
             return (
-              <span key={item.name + index}>
+              <span key={item.type.name + index}>
                 <button className='mr1 bn pa1 bg-washed-red black br1'>
                   {item.type.name}
                 </button>
@@ -134,7 +134,7 @@ function PokemonDetail() {
           <b>Abilities:</b>{' '}
           {pokemon.abilities.map((item, index) => {
             return (
-              <span key={item.name + index}>
+              <span key={item.ability.name + index}>
                 <button className='mr1 bn pa1 bg-washed-green br1'>
                   {item.ability.name}
                 </button>
@@ -146,6 +146,42 @@ function PokemonDetail() {
     );
   };
 
+  const Stats = () => {
+    const baseStats = pokemon.stats.map((item) => ({
+      name: item.stat.name,
+      value: item.base_stat,
+    }));
+
+    const maxStatValue = Math.max(...baseStats.map((stat) => stat.value));
+    return (
+      <>
+        <p className='b dark-blue'>STATS</p>
+        {baseStats.map((stat) => {
+          return (
+            <div key={stat.name} className='mb2'>
+              <div className='flex items-center'>
+                <div className='w-20'>
+                  <b>{stat.name}</b>
+                </div>
+                <div className='w-80 bg-light-gray'>
+                  <div
+                    className='bg-blue flex justify-end items-center white b--dashed b--gray'
+                    style={{
+                      width: `${(stat.value / maxStatValue) * 100}%`,
+                      height: '25px',
+                    }}
+                  >
+                    {stat.value}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </>
+    );
+  };
+
   return (
     <div className='pa3'>
       <Link to='/'>
@@ -154,7 +190,7 @@ function PokemonDetail() {
       <div className='flex flex-wrap justify-center'>
         <PokemonImg id={id} name={pokemon.name} />
 
-        <main>
+        <main className='w-100 w-70-l pa3'>
           <NameAndFlavor
             name={pokemon.name}
             flavor={pokemonSpecies.flavor_text_entries[0].flavor_text}
@@ -164,6 +200,7 @@ function PokemonDetail() {
             <Profile pokemon={pokemon} pokemonSpecies={pokemonSpecies} />
             <Specs pokemon={pokemon} pokemonSpecies={pokemonSpecies} />
           </div>
+          <Stats />
         </main>
       </div>
     </div>
